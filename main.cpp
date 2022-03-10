@@ -82,7 +82,47 @@ void question1() {  // Topic: Accessing array using Pointer Notation
     cout << "Count of 's' characters = " << count << endl;
 }
 
-void question2() {
+void question2() {  // dynamic memory allocation
+
+    // a. Dynamically allocate a block of memory to store an
+    //    array of 100 integer values. Declare a pointer
+    //    called "array" that will store the address of the
+    //    array block.
+    //
+    //    Using array notation, iterate over the array
+    //    and output all elements in the array. Count an output
+    //    all values greater than one million.
+    //
+    //    You must implement good dynamic memory management practices.
+    //
+    //    Type a comment in after your code explaining where
+    //    the values displayed came from. ALso, comment on the
+    //    repeatability of the (i.e. will your program always
+    //    give the output that is currently displayed. Explain.
+
+
+    int size=100;                   // given
+
+    int* array = new int[size];
+    int count = 0;
+    for(int i=0; i<size; i++) {
+        cout << array[i] << ", " ;
+        if( array[i] > 1000000 ) {
+            count++;
+        }
+    }
+    cout << "2.a. Count of numbers between +- 1 million = " << count << endl;
+
+    // ANSWER: Students should explain that the dynamic array will
+    // initially contain garbage values and those values will be
+    // valid integers. There will be a 'random' number of them falling
+    // in the range s.
+    //
+
+    delete [] array;    // free up the memory block
+    array = nullptr;    // prevent dangling pointer
+
+
 cout << "test" << endl;
 
 }
@@ -91,7 +131,8 @@ cout << "test" << endl;
 
 int main() {
     std::cout << "OOP Practical Examination - CA1 - March 2022" << std::endl;
-    question1();
+    //question1();
+    question2();
     return 0;
 }
 
