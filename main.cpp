@@ -83,7 +83,7 @@ void question1() {  // Topic: Accessing array using Pointer Notation
 }
 
 void question2() {
-
+cout << "test" << endl;
 
 }
 
