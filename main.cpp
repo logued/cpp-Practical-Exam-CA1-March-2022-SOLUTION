@@ -1,14 +1,20 @@
-#include <iostream>
+#include <iostream> // <<<  ENTER YOUR NAME  HERE  >>>
 #include <cstdlib>
 #include <ctime>
-
+#include<sstream>
 using namespace std;
 
+// student struct definition - given
+struct student {
+    string name;
+    string studentNumber;
+    int age;
+};
+
+
+
 double average_array_notation(int[], int);
-
 double average_pointer_notation(int *, int);
-
-// Student Name:  >>>>>>>>>    ENTER YOUR NAME HERE   <<<<<<<<<<<
 
 // Do NOT modify any code that is given to you.
 // Test each task as you complete it to ensure that it is correct.
@@ -101,10 +107,13 @@ void question2() {  // dynamic memory allocation
     srand((unsigned) time(0));      // use current time to seed rand() - given
     int randomNumber = (rand() % 100) + 1;    // IN RANGE 1 TO 100  - given
 
+    cout << "Q2.a(i) Generate array of 100 random numbers (Range 1-48):" << endl;
     for (int index = 0; index < size; index++) {
-        randomNumber = (rand() % 100) + 1;  // IN RANGE 1 TO 100
+        randomNumber = (rand() % 47) + 1;  // IN RANGE 1 TO 47
         array[index] = randomNumber;
+        cout << randomNumber << ",";
     }
+    cout << endl;
 
     //TODO  Q.2a(ii)
     //      Write a function average_array_notation() that accepts the array
@@ -144,21 +153,103 @@ double average_array_notation(int array[], int size) {
 }
 
 // Q2.a(iii)
-double average_pointer_notation(int array[], int size) {
+double average_pointer_notation(int* ptr_int, int size) {
     int sum = 0;
     for (int i = 0; i < size; i++) {
-        if (array[i] % 2 != 0) {    // only odd numbers
-            sum = sum + array[i];
+        if ( *ptr_int % 2 != 0) {    // only odd numbers
+            sum = sum + *ptr_int;
         }
+        ptr_int++;
     }
     return (double) sum / size;
 }
 
+//TODO Q3  (Recursion)
+//      Write a recursive function called bounce() that will accept a starting integer value
+//      and output a sequence of numbers, reducing by one on each iteration, down to zero,
+//      followed by a sequence of increasing values as follows:
+//      bounce(4)  - will print 4,3,2,1,0,1,2,3,4
+//      bounce(3) – will print 3,2,1,0,1,2,3  etc.
+//      Call your function with the integer argument 3.
+
+//Q.3
+void bounce(int n) {
+    if (n > 0) {
+        cout << n << ", ";
+        bounce(n - 1);   // recursive call
+    }
+    cout << n << ", ";
+}
+
+// Q4(a)
+void initialize_student(student& stuRef) {
+    stuRef.name = "Joe Bloggs";
+    stuRef.studentNumber = "D00002357";
+    stuRef.age = 18;
+}
+
+// Q4(b)
+void display(student s) {       // call by value
+    cout << "Name: " << s.name << ", ";
+    cout << "Number: " << s.studentNumber << ", ";
+    cout << "Age: " << s.age << endl;
+}
+
+// Q4(c)
+void incrementAge(student* pStudent) {  // pointer notation
+    pStudent->age++;
+}
+
+//Q4(d)
+void fillArray(student arr[], int size) {
+
+    for (int i = 0; i < size; i++) {
+        cout << "Enter name: ";
+        getline(cin, arr[i].name);
+        cout << "Enter ID: ";
+        getline(cin, arr[i].studentNumber);
+        cout << "Enter age: ";
+        string temp;
+        getline(cin, temp);
+        (stringstream)temp >> arr[i].age;
+    }
+}
+
+void question4() {
+    cout << "Q4 - struct student" << endl;
+
+    student studentA;   // creates a struct object
+    initialize_student(studentA);
+    incrementAge(&studentA);
+    display(studentA);
+
+    int size = 3;
+    student* studentArray = new student[size];  // array of struct
+    fillArray(studentArray,size);
+
+    cout << "Q4(d) Display entered array of struct: " << endl;
+    for (int i = 0; i < size; i++) {
+        display(studentArray[i]);
+    }
+
+    // avoid memory leaks by freeing (deleting) the dynamic memory
+    delete[] studentArray;
+    studentArray = nullptr;
+
+}
+
+void question3() {
+    cout << "Question 3 - calling bounce(3):";
+    bounce(3);
+}
 
 int main() {
     std::cout << "OOP Practical Examination - CA1 - March 2022" << std::endl;
     //question1();
-    question2();
+    //question2();
+    //question3();
+    //question4();
+
     return 0;
 }
 
